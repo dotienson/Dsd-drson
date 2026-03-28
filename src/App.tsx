@@ -64,7 +64,7 @@ const CLINICAL_INFO: Record<string, { title: string, description: string, howTo:
   amh: {
     title: "Xét nghiệm AMH",
     description: "Anti-Müllerian Hormone được tiết ra bởi tế bào Sertoli của tinh hoàn. Giúp đánh giá sự hiện diện và chức năng của mô tinh hoàn.",
-    howTo: "Tham chiếu: AMH cao (>10 ng/mL) gợi ý mô tinh hoàn hoạt động. AMH không phát hiện được gợi ý không có tinh hoàn (Anorchia) hoặc XX DSD."
+    howTo: "Tham chiếu: AMH cao (>10 ng/mL) gợi ý mô tinh hoàn hoạt động. AMH không phát hiện được gợi ý không có tinh hoàn hoặc DSD nhiễm sắc thể XX."
   },
   testosterone: {
     title: "Xét nghiệm Testosterone",
@@ -87,9 +87,9 @@ const ABBREVIATIONS: Record<string, string> = {
   'PAIS': 'Hội chứng kháng androgen bán phần',
   'StAR': 'Protein điều hòa cấp tính steroid',
   'SCC': 'Enzyme cắt chuỗi bên Cholesterol',
-  'POR': 'P450 oxidoreductase deficiency',
-  'SW': 'Dạng mất muối (Salt-wasting)',
-  'SV': 'Dạng nam hóa đơn thuần (Simple-virilizing)',
+  'POR': 'Thiếu hụt P450 oxidoreductase',
+  'SW': 'Dạng mất muối',
+  'SV': 'Dạng nam hóa đơn thuần',
 };
 
 // --- Helper Components ---
@@ -139,6 +139,7 @@ export default function App() {
     inputs: {},
     history: [],
   });
+  const [isDisclaimerAccepted, setIsDisclaimerAccepted] = useState(false);
 
   const reset = () => {
     setState({
@@ -146,6 +147,7 @@ export default function App() {
       inputs: {},
       history: [],
     });
+    setIsDisclaimerAccepted(false);
   };
 
   const startQuestionnaire = () => {
@@ -169,7 +171,7 @@ export default function App() {
       if (inputs.mullerianStructure === true) {
         if (inputs.genitalAsymmetry === true) {
           return {
-            name: 'Ovotesticular DSD',
+            name: 'DSD dạng Ovotesticular',
             fullName: 'Rối loạn phát triển giới tính dạng Ovotesticular',
             description: 'Có sự hiện diện của cả mô tinh hoàn và mô buồng trứng trên cùng một cá thể.',
             reasoning: 'Vì sờ thấy tuyến sinh dục (có mô tinh hoàn) nhưng lại có cấu trúc Müllerian (tử cung) và biểu hiện bất đối xứng, gợi ý sự phát triển không đồng nhất của hai bên tuyến sinh dục.',
@@ -178,16 +180,16 @@ export default function App() {
         } else if (inputs.genitalAsymmetry === false && inputs.amh !== undefined) {
           if (inputs.amh < 10) {
             return {
-              name: 'Dysgenesis',
-              fullName: 'Loạn sản tuyến sinh dục (Gonadal Dysgenesis)',
+              name: 'Loạn sản tuyến sinh dục',
+              fullName: 'Loạn sản tuyến sinh dục',
               description: 'Tuyến sinh dục phát triển không hoàn thiện.',
               reasoning: 'Sờ thấy tuyến sinh dục nhưng có tử cung và AMH thấp (<10), chứng tỏ mô tinh hoàn hiện diện nhưng chức năng tiết AMH bị suy giảm nặng do loạn sản.',
               suggestedEvaluations: ['Xét nghiệm Di truyền (Karyotype)', 'Đánh giá chức năng tuyến sinh dục'],
             };
           } else {
             return {
-              name: 'AMH Resistance',
-              fullName: 'Hội chứng tồn tại ống Müller (PMDS) / Kháng AMH',
+              name: 'Kháng AMH',
+              fullName: 'Hội chứng tồn tại ống Müller / Kháng AMH',
               description: 'Cơ thể không đáp ứng với hormone AMH, dẫn đến tồn tại tử cung/vòi trứng ở trẻ có kiểu hình nam.',
               reasoning: 'Sờ thấy tuyến sinh dục và AMH cao (>10) nhưng vẫn có tử cung, chứng tỏ mô tinh hoàn hoạt động tốt nhưng cơ quan đích không đáp ứng với AMH.',
               suggestedEvaluations: ['Xét nghiệm gen AMH hoặc AMHR2', 'Phẫu thuật nội soi đánh giá'],
@@ -198,13 +200,13 @@ export default function App() {
         if (inputs.testosterone < 100) {
           if (inputs.saltStatus === 'SaltWasting') {
             return {
-              name: '3BHSD, StAR, or SCC',
+              name: 'Khiếm khuyết sinh tổng hợp Steroid',
               fullName: 'Khiếm khuyết sinh tổng hợp Steroid sớm',
               description: 'Thiếu hụt các enzyme quan trọng trong quá trình tạo hormone steroid từ cholesterol.',
               reasoning: 'Bệnh nhân kiểu hình nam (không tử cung) nhưng Testosterone thấp và có tình trạng mất muối, gợi ý khiếm khuyết enzyme ảnh hưởng đến cả vỏ thượng thận và tuyến sinh dục.',
               suggestedEvaluations: ['Định lượng các tiền chất steroid', 'Xét nghiệm gen tương ứng'],
               isEmergency: true,
-              emergencyNote: 'Nguy cơ cơn mất muối cấp (Salt-wasting crisis). Cần theo dõi sát điện giải và điều trị bù dịch/hormone kịp thời.',
+              emergencyNote: 'Nguy cơ cơn mất muối cấp. Cần theo dõi sát điện giải và điều trị bù dịch/hormone kịp thời.',
             };
           } else if (inputs.saltStatus === 'Hypokalemia') {
             return {
@@ -216,8 +218,8 @@ export default function App() {
             };
           } else if (inputs.saltStatus === 'Normal') {
             return {
-              name: 'Isolated Defect',
-              fullName: 'Khiếm khuyết đơn độc (Isolated Leydig cell hypoplasia/defect)',
+              name: 'Khiếm khuyết đơn độc',
+              fullName: 'Khiếm khuyết đơn độc',
               description: 'Khiếm khuyết khu trú tại tế bào Leydig hoặc thụ thể LH.',
               reasoning: 'Testosterone thấp nhưng không có rối loạn điện giải, gợi ý khiếm khuyết chỉ khu trú tại quá trình sản xuất androgen của tinh hoàn.',
               suggestedEvaluations: ['Xét nghiệm Di truyền', 'Thử nghiệm kích thích hCG'],
@@ -262,8 +264,8 @@ export default function App() {
       if (inputs.mullerianStructure === false && inputs.amh !== undefined) {
         if (inputs.amh === 0) {
           return {
-            name: 'Anorchia',
-            fullName: 'Hội chứng không có tinh hoàn (Vanishing Testis Syndrome)',
+            name: 'Hội chứng không có tinh hoàn',
+            fullName: 'Hội chứng không có tinh hoàn',
             description: 'Tinh hoàn bị thoái triển hoàn toàn trong quá trình bào thai.',
             reasoning: 'Không sờ thấy tuyến sinh dục, không có tử cung (chứng tỏ AMH từng hiện diện để làm thoái triển ống Muller) nhưng hiện tại AMH không phát hiện được, gợi ý tinh hoàn đã biến mất sau giai đoạn biệt hóa ban đầu.',
             suggestedEvaluations: ['Thử nghiệm kích thích hCG', 'Nội soi thăm dò nếu cần'],
@@ -272,7 +274,7 @@ export default function App() {
       } else if (inputs.mullerianStructure === true) {
         if (inputs.maternalVirilisation === true) {
           return {
-            name: 'Aromatase / POR',
+            name: 'Thiếu hụt Aromatase / POR',
             fullName: 'Thiếu hụt Aromatase hoặc POR',
             description: 'Rối loạn chuyển đổi androgen thành estrogen, ảnh hưởng cả mẹ và thai nhi.',
             reasoning: 'Sự nam hóa của cả mẹ và con gợi ý một khối u tiết androgen hoặc phổ biến hơn là thiếu hụt enzyme chuyển đổi androgen thành estrogen (Aromatase).',
@@ -320,7 +322,7 @@ export default function App() {
             }
           } else if (inputs.seventeenOHP < 10) {
             return {
-              name: 'Genetics',
+              name: 'Nguyên nhân di truyền khác',
               fullName: 'Cần xét nghiệm Di truyền sâu hơn',
               description: 'Các chỉ số sinh hóa cơ bản bình thường, cần đánh giá bộ nhiễm sắc thể và các gen DSD khác.',
               reasoning: 'Khi các xét nghiệm nội tiết phổ biến đều bình thường, nguyên nhân có thể nằm ở các đột biến gen hiếm gặp điều hòa sự biệt hóa tuyến sinh dục.',
@@ -361,7 +363,7 @@ export default function App() {
         transition={{ delay: 0.2 }}
         className="text-xl text-slate-600 mb-10 leading-relaxed font-medium"
       >
-        Chào mừng bạn! Tôi là trợ lý ảo của Dr. Son, sẵn sàng hỗ trợ bạn tiếp cận chẩn đoán DSD một cách khoa học và thân thiện nhất.
+        Lưu đồ tiếp cận bất thường phát triển giới tính (DSD) cho bác sĩ nhi - sơ sinh
       </motion.p>
 
       <motion.div 
@@ -385,12 +387,30 @@ export default function App() {
           </div>
           <div>
             <h3 className="font-semibold text-slate-900">Cảnh báo cấp cứu</h3>
-            <p className="text-sm text-slate-500">Nhận diện sớm các tình trạng nguy hiểm như mất muối (salt-wasting crisis).</p>
+            <p className="text-sm text-slate-500">Nhận diện sớm các tình trạng nguy hiểm như cơn mất muối cấp.</p>
           </div>
         </Card>
       </motion.div>
 
-      <Button onClick={startQuestionnaire} className="w-full sm:w-auto px-12 py-4 text-lg">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.4 }}
+        className="mb-8 flex items-center justify-center gap-3"
+      >
+        <input 
+          type="checkbox" 
+          id="disclaimer" 
+          checked={isDisclaimerAccepted}
+          onChange={(e) => setIsDisclaimerAccepted(e.target.checked)}
+          className="w-5 h-5 rounded border-slate-300 text-rose-500 focus:ring-rose-500 cursor-pointer"
+        />
+        <label htmlFor="disclaimer" className="text-sm font-medium text-slate-700 cursor-pointer select-none">
+          Chỉ sử dụng với mục đích tham khảo lâm sàng
+        </label>
+      </motion.div>
+
+      <Button onClick={startQuestionnaire} disabled={!isDisclaimerAccepted} className="w-full sm:w-auto px-12 py-4 text-lg">
         Bắt đầu đánh giá <ChevronRight size={20} />
       </Button>
 
@@ -413,10 +433,10 @@ export default function App() {
       questionContent = (
         <QuestionStep 
           title="Khám lâm sàng"
-          question="Có sờ thấy tuyến sinh dục không? (Palpable gonads)"
+          question="Có sờ thấy tuyến sinh dục không?"
           options={[
-            { label: 'Có (Yes)', value: true },
-            { label: 'Không (No)', value: false }
+            { label: 'Có', value: true },
+            { label: 'Không', value: false }
           ]}
           onSelect={(val) => updateInput('palpableGonads', val)}
         />
@@ -427,8 +447,8 @@ export default function App() {
           title="Siêu âm / Hình ảnh"
           question="Có cấu trúc Müllerian không? (Tử cung, vòi trứng...)"
           options={[
-            { label: 'Có (Yes)', value: true },
-            { label: 'Không (No)', value: false }
+            { label: 'Có', value: true },
+            { label: 'Không', value: false }
           ]}
           onSelect={(val) => updateInput('mullerianStructure', val)}
         />
@@ -440,10 +460,10 @@ export default function App() {
           questionContent = (
             <QuestionStep 
               title="Khám lâm sàng"
-              question="Có bất đối xứng sinh dục không? (Genital asymmetry)"
+              question="Có bất đối xứng sinh dục không?"
               options={[
-                { label: 'Có (Yes)', value: true },
-                { label: 'Không (No)', value: false }
+                { label: 'Có', value: true },
+                { label: 'Không', value: false }
               ]}
               onSelect={(val) => updateInput('genitalAsymmetry', val)}
             />
@@ -473,11 +493,11 @@ export default function App() {
           questionContent = (
             <QuestionStep 
               title="Điện giải & Chuyển hóa"
-              question="Tình trạng điện giải / Muối (Salt status)"
+              question="Tình trạng điện giải / Muối"
               options={[
-                { label: 'Bình thường (Normal)', value: 'Normal' },
-                { label: 'Mất muối (Salt wasting)', value: 'SaltWasting' },
-                { label: 'Hạ Kali máu (Hypokalemia)', value: 'Hypokalemia' }
+                { label: 'Bình thường', value: 'Normal' },
+                { label: 'Mất muối', value: 'SaltWasting' },
+                { label: 'Hạ Kali máu', value: 'Hypokalemia' }
               ]}
               onSelect={(val) => updateInput('saltStatus', val)}
             />
@@ -502,7 +522,7 @@ export default function App() {
               title="Xét nghiệm cận lâm sàng"
               question="Nồng độ AMH (ng/mL)"
               options={[
-                { label: 'Không phát hiện được (Undetectable)', value: 0 },
+                { label: 'Không phát hiện được', value: 0 },
                 { label: 'Có phát hiện được', value: 1 } // Simplified for logic
               ]}
               onSelect={(val) => updateInput('amh', val)}
@@ -515,10 +535,10 @@ export default function App() {
           questionContent = (
             <QuestionStep 
               title="Tiền sử"
-              question="Mẹ có bị nam hóa khi mang thai không? (Maternal virilisation)"
+              question="Mẹ có bị nam hóa khi mang thai không?"
               options={[
-                { label: 'Có (Yes)', value: true },
-                { label: 'Không (No)', value: false }
+                { label: 'Có', value: true },
+                { label: 'Không', value: false }
               ]}
               onSelect={(val) => updateInput('maternalVirilisation', val)}
             />
@@ -537,11 +557,11 @@ export default function App() {
             questionContent = (
               <QuestionStep 
                 title="Điện giải & Chuyển hóa"
-                question="Tình trạng điện giải / Muối (Salt status)"
+                question="Tình trạng điện giải / Muối"
                 options={[
-                  { label: 'Bình thường (Normal)', value: 'Normal' },
-                  { label: 'Mất muối (Salt wasting)', value: 'SaltWasting' },
-                  { label: 'Hạ Kali máu (Hypokalemia)', value: 'Hypokalemia' }
+                  { label: 'Bình thường', value: 'Normal' },
+                  { label: 'Mất muối', value: 'SaltWasting' },
+                  { label: 'Hạ Kali máu', value: 'Hypokalemia' }
                 ]}
                 onSelect={(val) => updateInput('saltStatus', val)}
               />
@@ -691,7 +711,7 @@ export default function App() {
             </div>
             <div>
               <span className="font-black text-xl tracking-tight block leading-none">DSD Dr. Son</span>
-              <span className="text-[10px] font-black text-rose-500 uppercase tracking-widest">Version 1.0</span>
+              <span className="text-[10px] font-black text-rose-500 uppercase tracking-widest">Phiên bản 1.0</span>
             </div>
           </div>
           <div className="hidden sm:flex items-center gap-8 text-sm font-bold text-slate-500">
@@ -711,7 +731,7 @@ export default function App() {
       {/* Footer Disclaimer */}
       {state.step !== 'landing' && (
         <footer className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-md border-t border-slate-200 py-3 px-6 text-[10px] text-slate-400 text-center uppercase tracking-widest">
-          Chỉ dùng cho mục đích tham khảo lâm sàng • Không thay thế chẩn đoán chuyên khoa
+          Chỉ dùng cho mục đích tham khảo lâm sàng
         </footer>
       )}
     </div>
@@ -740,23 +760,23 @@ function QuestionStep({
   const info = infoKey ? CLINICAL_INFO[infoKey] : null;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-5">
       <div>
-        <h3 className="text-rose-500 font-black text-xs uppercase tracking-[0.2em] mb-3">{title}</h3>
-        <h2 className="text-3xl font-black text-slate-900 mb-6 leading-tight">{question}</h2>
+        <h3 className="text-rose-500 font-black text-xs uppercase tracking-[0.2em] mb-2">{title}</h3>
+        <h2 className="text-2xl font-black text-slate-900 mb-4 leading-tight">{question}</h2>
         
         {info && (
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="p-6 bg-white rounded-3xl border-2 border-slate-50 shadow-sm mb-8"
+            className="p-4 bg-white rounded-2xl border border-slate-100 shadow-sm mb-5"
           >
-            <div className="flex items-center gap-3 mb-3 text-slate-800 font-bold">
-              <div className="p-1.5 bg-rose-50 text-rose-500 rounded-lg"><Info size={16} /></div>
+            <div className="flex items-center gap-2 mb-2 text-slate-800 font-bold text-sm">
+              <div className="p-1 bg-rose-50 text-rose-500 rounded-md"><Info size={14} /></div>
               Kiến thức lâm sàng:
             </div>
-            <p className="text-slate-600 text-sm mb-4 leading-relaxed">{info.description}</p>
-            <div className="p-4 bg-slate-50 rounded-2xl text-xs text-slate-500 leading-relaxed">
+            <p className="text-slate-600 text-sm mb-3 leading-relaxed">{info.description}</p>
+            <div className="p-3 bg-slate-50 rounded-xl text-xs text-slate-500 leading-relaxed">
               <span className="font-bold text-slate-700 block mb-1">Hướng dẫn khám/xét nghiệm:</span>
               {info.howTo}
             </div>
@@ -764,16 +784,16 @@ function QuestionStep({
         )}
       </div>
 
-      <div className="grid gap-4">
+      <div className="grid gap-3">
         {options.map((opt, idx) => (
           <button
             key={idx}
             onClick={() => onSelect(opt.value)}
-            className="w-full p-6 text-left bg-white border-2 border-slate-50 rounded-3xl hover:border-rose-500 hover:bg-rose-50 transition-all group flex items-center justify-between shadow-sm hover:shadow-rose-100"
+            className="w-full p-4 text-left bg-white border border-slate-100 rounded-2xl hover:border-rose-500 hover:bg-rose-50 transition-all group flex items-center justify-between shadow-sm hover:shadow-rose-100"
           >
             <span className="font-bold text-lg text-slate-700 group-hover:text-rose-700">{opt.label}</span>
-            <div className="w-10 h-10 rounded-full bg-slate-50 group-hover:bg-rose-500 group-hover:text-white flex items-center justify-center transition-colors">
-              <ChevronRight size={20} />
+            <div className="w-8 h-8 rounded-full bg-slate-50 group-hover:bg-rose-500 group-hover:text-white flex items-center justify-center transition-colors">
+              <ChevronRight size={18} />
             </div>
           </button>
         ))}
@@ -801,23 +821,23 @@ function InputStep({
   const [value, setValue] = useState('');
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-5">
       <div>
-        <h3 className="text-rose-500 font-black text-xs uppercase tracking-[0.2em] mb-3">{title}</h3>
-        <h2 className="text-3xl font-black text-slate-900 mb-6 leading-tight">{question}</h2>
+        <h3 className="text-rose-500 font-black text-xs uppercase tracking-[0.2em] mb-2">{title}</h3>
+        <h2 className="text-2xl font-black text-slate-900 mb-4 leading-tight">{question}</h2>
 
         {info && (
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="p-6 bg-white rounded-3xl border-2 border-slate-50 shadow-sm mb-8"
+            className="p-4 bg-white rounded-2xl border border-slate-100 shadow-sm mb-5"
           >
-            <div className="flex items-center gap-3 mb-3 text-slate-800 font-bold">
-              <div className="p-1.5 bg-rose-50 text-rose-500 rounded-lg"><Info size={16} /></div>
+            <div className="flex items-center gap-2 mb-2 text-slate-800 font-bold text-sm">
+              <div className="p-1 bg-rose-50 text-rose-500 rounded-md"><Info size={14} /></div>
               Kiến thức lâm sàng:
             </div>
-            <p className="text-slate-600 text-sm mb-4 leading-relaxed">{info.description}</p>
-            <div className="p-4 bg-slate-50 rounded-2xl text-xs text-slate-500 leading-relaxed">
+            <p className="text-slate-600 text-sm mb-3 leading-relaxed">{info.description}</p>
+            <div className="p-3 bg-slate-50 rounded-xl text-xs text-slate-500 leading-relaxed">
               <span className="font-bold text-slate-700 block mb-1">Giá trị tham chiếu:</span>
               {info.howTo}
             </div>
@@ -825,7 +845,7 @@ function InputStep({
         )}
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-4">
         <div className="relative">
           <input 
             type="number"
@@ -834,19 +854,19 @@ function InputStep({
             value={value}
             onChange={(e) => setValue(e.target.value)}
             placeholder={placeholder}
-            className="w-full p-8 bg-white border-2 border-slate-100 rounded-3xl text-3xl font-black text-slate-900 focus:outline-none focus:ring-4 focus:ring-rose-500/10 focus:border-rose-500 transition-all placeholder:text-slate-200"
+            className="w-full p-6 bg-white border-2 border-slate-100 rounded-2xl text-2xl font-black text-slate-900 focus:outline-none focus:ring-4 focus:ring-rose-500/10 focus:border-rose-500 transition-all placeholder:text-slate-200"
             onKeyDown={(e) => {
               if (e.key === 'Enter' && value) onConfirm(value);
             }}
           />
-          <div className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-300 font-bold text-lg">
+          <div className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-300 font-bold text-base">
             {question.includes("ng/mL") ? "ng/mL" : question.includes("ng/dL") ? "ng/dL" : ""}
           </div>
         </div>
         <Button 
           onClick={() => onConfirm(value)} 
           disabled={!value}
-          className="w-full py-6 rounded-3xl text-xl bg-rose-500 hover:bg-rose-600"
+          className="w-full py-5 rounded-2xl text-lg bg-rose-500 hover:bg-rose-600"
         >
           Xác nhận chỉ số
         </Button>
