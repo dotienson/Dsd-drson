@@ -52,29 +52,29 @@ interface Diagnosis {
 
 const CLINICAL_INFO: Record<string, { title: string, description: string, howTo: string }> = {
   palpableGonads: {
-    title: "Sờ tuyến sinh dục",
-    description: "Tuyến sinh dục sờ thấy thường là tinh hoàn. Nếu sờ thấy ở bẹn hoặc bìu, khả năng cao có mô tinh hoàn.",
-    howTo: "Cách khám: Dùng hai ngón tay sờ nhẹ nhàng từ lỗ bẹn nông dọc theo ống bẹn xuống vùng bìu hoặc môi lớn. Ghi nhận vị trí, kích thước và mật độ."
+    title: "Sờ tuyến sinh dục (Palpable Gonads)",
+    description: "Sự hiện diện của tuyến sinh dục sờ thấy được ở ống bẹn hoặc nếp môi bìu có giá trị dự đoán cao về mô tinh hoàn.",
+    howTo: "Cách khám: Sờ dọc ống bẹn và bìu/môi lớn. Ghi nhận vị trí, kích thước, mật độ."
   },
   mullerianStructure: {
-    title: "Cấu trúc Müllerian",
-    description: "Bao gồm tử cung, vòi trứng và phần trên âm đạo. Sự hiện diện của chúng cho thấy nồng độ AMH thấp hoặc không có tác dụng trong phôi thai.",
-    howTo: "Chẩn đoán: Thường xác định qua siêu âm đường bụng. Cần bác sĩ chẩn đoán hình ảnh giàu kinh nghiệm để tìm tử cung nhỏ ở trẻ sơ sinh."
+    title: "Cấu trúc Müllerian (Müllerian Structures)",
+    description: "Sự vắng mặt của các cấu trúc Müllerian cho thấy sự hiện diện của Anti-Müllerian Hormone (AMH) được tiết ra bởi các tế bào Sertoli của thai nhi đang hoạt động.",
+    howTo: "Chẩn đoán: Siêu âm ổ bụng/vùng chậu hoặc MRI để xác định tử cung."
   },
   amh: {
-    title: "Xét nghiệm AMH",
-    description: "Anti-Müllerian Hormone được tiết ra bởi tế bào Sertoli của tinh hoàn. Giúp đánh giá sự hiện diện và chức năng của mô tinh hoàn.",
-    howTo: "Tham chiếu: AMH cao (>10 ng/mL) gợi ý mô tinh hoàn hoạt động. AMH không phát hiện được gợi ý không có tinh hoàn hoặc DSD nhiễm sắc thể XX."
+    title: "Xét nghiệm AMH (Anti-Müllerian Hormone)",
+    description: "AMH huyết thanh là một dấu ấn có độ nhạy và độ đặc hiệu cao đối với mô tinh hoàn ở bệnh nhân DSD trước tuổi dậy thì.",
+    howTo: "Tham chiếu: AMH > 10 ng/mL gợi ý mô tinh hoàn hoạt động. AMH không phát hiện được gợi ý Anorchia hoặc XX DSD."
   },
   testosterone: {
     title: "Xét nghiệm Testosterone",
-    description: "Hormone nam chính, đánh giá khả năng bài tiết của tế bào Leydig.",
-    howTo: "Tham chiếu: Ở trẻ sơ sinh nam (đỉnh sơ sinh), Testosterone thường > 100 ng/dL. Nếu thấp hơn, cần nghĩ đến khiếm khuyết sinh tổng hợp hoặc loạn sản."
+    description: "Nồng độ testosterone cơ bản hoặc sau kích thích bằng hCG giúp đánh giá chức năng tế bào Leydig và quá trình sinh tổng hợp androgen.",
+    howTo: "Tham chiếu: Đỉnh sơ sinh (mini-puberty) Testosterone > 100 ng/dL. Thấp hơn gợi ý khiếm khuyết sinh tổng hợp hoặc loạn sản."
   },
   seventeenOHP: {
     title: "Xét nghiệm 17-OHP",
-    description: "Chỉ số quan trọng nhất để tầm soát Tăng sản thượng thận bẩm sinh (CAH).",
-    howTo: "Tham chiếu: > 30 ng/mL rất gợi ý 21-OHD. Cần lấy máu sau 48h tuổi để tránh dương tính giả do đỉnh sinh lý sau sinh."
+    description: "17-OHP tăng cao là dấu ấn chẩn đoán chính cho thiếu hụt 21-hydroxylase, nguyên nhân phổ biến nhất của CAH.",
+    howTo: "Tham chiếu: > 30 ng/mL chẩn đoán 21-OHD. Lấy máu sau 48h tuổi."
   }
 };
 
@@ -95,7 +95,7 @@ const ABBREVIATIONS: Record<string, string> = {
 // --- Helper Components ---
 
 const Card = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => (
-  <div className={`bg-white rounded-[2rem] shadow-xl shadow-slate-100/50 border border-slate-50 overflow-hidden ${className}`}>
+  <div className={`bg-white rounded-2xl shadow-xl shadow-slate-100/50 border border-slate-50 overflow-hidden ${className}`}>
     {children}
   </div>
 );
@@ -114,17 +114,17 @@ const Button = ({
   className?: string
 }) => {
   const variants = {
-    primary: 'bg-rose-500 text-white hover:bg-rose-600 shadow-rose-100',
-    secondary: 'bg-sky-500 text-white hover:bg-sky-600 shadow-sky-100',
-    outline: 'bg-white text-slate-700 border-2 border-slate-100 hover:border-rose-500 hover:text-rose-500',
-    danger: 'bg-red-500 text-white hover:bg-red-600 shadow-red-100',
+    primary: 'bg-blue-600 text-white hover:bg-blue-700 shadow-blue-100',
+    secondary: 'bg-slate-800 text-white hover:bg-slate-900 shadow-slate-100',
+    outline: 'bg-white text-slate-700 border-2 border-slate-200 hover:border-blue-600 hover:text-blue-600',
+    danger: 'bg-red-600 text-white hover:bg-red-700 shadow-red-100',
   };
 
   return (
     <button 
       onClick={onClick}
       disabled={disabled}
-      className={`px-8 py-4 rounded-3xl font-black transition-all active:scale-95 disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-3 shadow-lg ${variants[variant]} ${className}`}
+      className={`px-8 py-4 rounded-xl font-bold transition-all active:scale-95 disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-3 shadow-lg ${variants[variant]} ${className}`}
     >
       {children}
     </button>
@@ -155,10 +155,32 @@ export default function App() {
   };
 
   const updateInput = (key: keyof AppState['inputs'], value: any) => {
-    setState(prev => ({
-      ...prev,
-      inputs: { ...prev.inputs, [key]: value }
-    }));
+    setState(prev => {
+      const newHistory = [...prev.history, JSON.stringify(prev.inputs)];
+      return {
+        ...prev,
+        history: newHistory,
+        inputs: { ...prev.inputs, [key]: value }
+      };
+    });
+  };
+
+  const goBack = () => {
+    setState(prev => {
+      if (prev.history.length === 0) {
+        return { ...prev, step: 'landing', inputs: {}, history: [] };
+      }
+      const newHistory = [...prev.history];
+      const lastInputsStr = newHistory.pop();
+      const lastInputs = lastInputsStr ? JSON.parse(lastInputsStr) : {};
+      
+      return {
+        ...prev,
+        step: 'questionnaire',
+        history: newHistory,
+        inputs: lastInputs
+      };
+    });
   };
 
   // --- Logic Engine ---
@@ -171,8 +193,8 @@ export default function App() {
       if (inputs.mullerianStructure === true) {
         if (inputs.genitalAsymmetry === true) {
           return {
-            name: 'DSD dạng Ovotesticular',
-            fullName: 'Rối loạn phát triển giới tính dạng Ovotesticular',
+            name: 'Ovotesticular DSD',
+            fullName: 'Ovotesticular DSD (Rối loạn phát triển giới tính dạng Ovotesticular)',
             description: 'Có sự hiện diện của cả mô tinh hoàn và mô buồng trứng trên cùng một cá thể.',
             reasoning: 'Vì sờ thấy tuyến sinh dục (có mô tinh hoàn) nhưng lại có cấu trúc Müllerian (tử cung) và biểu hiện bất đối xứng, gợi ý sự phát triển không đồng nhất của hai bên tuyến sinh dục.',
             suggestedEvaluations: ['Xét nghiệm Di truyền (Karyotype)', 'Sinh thiết tuyến sinh dục', 'Siêu âm ổ bụng chuyên sâu'],
@@ -180,16 +202,16 @@ export default function App() {
         } else if (inputs.genitalAsymmetry === false && inputs.amh !== undefined) {
           if (inputs.amh < 10) {
             return {
-              name: 'Loạn sản tuyến sinh dục',
-              fullName: 'Loạn sản tuyến sinh dục',
+              name: 'Dysgenesis',
+              fullName: 'Dysgenesis (Loạn sản tuyến sinh dục)',
               description: 'Tuyến sinh dục phát triển không hoàn thiện.',
               reasoning: 'Sờ thấy tuyến sinh dục nhưng có tử cung và AMH thấp (<10), chứng tỏ mô tinh hoàn hiện diện nhưng chức năng tiết AMH bị suy giảm nặng do loạn sản.',
               suggestedEvaluations: ['Xét nghiệm Di truyền (Karyotype)', 'Đánh giá chức năng tuyến sinh dục'],
             };
           } else {
             return {
-              name: 'Kháng AMH',
-              fullName: 'Hội chứng tồn tại ống Müller / Kháng AMH',
+              name: 'AMH resistance',
+              fullName: 'AMH resistance (Kháng AMH)',
               description: 'Cơ thể không đáp ứng với hormone AMH, dẫn đến tồn tại tử cung/vòi trứng ở trẻ có kiểu hình nam.',
               reasoning: 'Sờ thấy tuyến sinh dục và AMH cao (>10) nhưng vẫn có tử cung, chứng tỏ mô tinh hoàn hoạt động tốt nhưng cơ quan đích không đáp ứng với AMH.',
               suggestedEvaluations: ['Xét nghiệm gen AMH hoặc AMHR2', 'Phẫu thuật nội soi đánh giá'],
@@ -200,8 +222,8 @@ export default function App() {
         if (inputs.testosterone < 100) {
           if (inputs.saltStatus === 'SaltWasting') {
             return {
-              name: 'Khiếm khuyết sinh tổng hợp Steroid',
-              fullName: 'Khiếm khuyết sinh tổng hợp Steroid sớm',
+              name: '3BHSD, StAR, hoặc SCC',
+              fullName: 'Khiếm khuyết sinh tổng hợp Steroid sớm (3BHSD, StAR, SCC)',
               description: 'Thiếu hụt các enzyme quan trọng trong quá trình tạo hormone steroid từ cholesterol.',
               reasoning: 'Bệnh nhân kiểu hình nam (không tử cung) nhưng Testosterone thấp và có tình trạng mất muối, gợi ý khiếm khuyết enzyme ảnh hưởng đến cả vỏ thượng thận và tuyến sinh dục.',
               suggestedEvaluations: ['Định lượng các tiền chất steroid', 'Xét nghiệm gen tương ứng'],
@@ -218,8 +240,8 @@ export default function App() {
             };
           } else if (inputs.saltStatus === 'Normal') {
             return {
-              name: 'Khiếm khuyết đơn độc',
-              fullName: 'Khiếm khuyết đơn độc',
+              name: 'Khiếm khuyết Isolated',
+              fullName: 'Khiếm khuyết Isolated (Đơn độc)',
               description: 'Khiếm khuyết khu trú tại tế bào Leydig hoặc thụ thể LH.',
               reasoning: 'Testosterone thấp nhưng không có rối loạn điện giải, gợi ý khiếm khuyết chỉ khu trú tại quá trình sản xuất androgen của tinh hoàn.',
               suggestedEvaluations: ['Xét nghiệm Di truyền', 'Thử nghiệm kích thích hCG'],
@@ -236,7 +258,7 @@ export default function App() {
               isEmergency: true,
               emergencyNote: 'Cảnh báo mất muối.',
             };
-          } else if (inputs.saltStatus === 'Normal' && inputs.testoDhtRatio !== undefined) {
+          } else if (inputs.saltStatus !== 'SaltWasting' && inputs.testoDhtRatio !== undefined) {
             if (inputs.testoDhtRatio > 10) {
               return {
                 name: '5ARD2',
@@ -264,8 +286,8 @@ export default function App() {
       if (inputs.mullerianStructure === false && inputs.amh !== undefined) {
         if (inputs.amh === 0) {
           return {
-            name: 'Hội chứng không có tinh hoàn',
-            fullName: 'Hội chứng không có tinh hoàn',
+            name: 'Anorchia',
+            fullName: 'Anorchia (Không có tinh hoàn)',
             description: 'Tinh hoàn bị thoái triển hoàn toàn trong quá trình bào thai.',
             reasoning: 'Không sờ thấy tuyến sinh dục, không có tử cung (chứng tỏ AMH từng hiện diện để làm thoái triển ống Muller) nhưng hiện tại AMH không phát hiện được, gợi ý tinh hoàn đã biến mất sau giai đoạn biệt hóa ban đầu.',
             suggestedEvaluations: ['Thử nghiệm kích thích hCG', 'Nội soi thăm dò nếu cần'],
@@ -274,24 +296,45 @@ export default function App() {
       } else if (inputs.mullerianStructure === true) {
         if (inputs.maternalVirilisation === true) {
           return {
-            name: 'Thiếu hụt Aromatase / POR',
-            fullName: 'Thiếu hụt Aromatase hoặc POR',
+            name: 'Aromatase / POR',
+            fullName: 'Aromatase / POR (Thiếu hụt Aromatase hoặc POR)',
             description: 'Rối loạn chuyển đổi androgen thành estrogen, ảnh hưởng cả mẹ và thai nhi.',
             reasoning: 'Sự nam hóa của cả mẹ và con gợi ý một khối u tiết androgen hoặc phổ biến hơn là thiếu hụt enzyme chuyển đổi androgen thành estrogen (Aromatase).',
             suggestedEvaluations: ['Định lượng Estrogen', 'Xét nghiệm gen CYP19A1 hoặc POR'],
           };
         } else if (inputs.maternalVirilisation === false && inputs.seventeenOHP !== undefined) {
           if (inputs.seventeenOHP > 30) {
-            const isSW = inputs.saltStatus === 'SaltWasting';
-            return {
-              name: `21OHD (${isSW ? 'SW' : 'SV'})`,
-              fullName: `${ABBREVIATIONS['21OHD']} - ${isSW ? ABBREVIATIONS['SW'] : ABBREVIATIONS['SV']}`,
-              description: 'Dạng phổ biến nhất của tăng sản thượng thận bẩm sinh (CAH).',
-              reasoning: 'Nồng độ 17-OHP rất cao (>30) là tiêu chuẩn vàng để chẩn đoán thiếu hụt 21-hydroxylase.',
-              suggestedEvaluations: ['Xét nghiệm gen CYP21A2', 'Theo dõi điện giải đồ'],
-              isEmergency: isSW,
-              emergencyNote: isSW ? 'Cấp cứu mất muối! Cần can thiệp ngay lập tức.' : undefined,
-            };
+            if (inputs.saltStatus === undefined) return null;
+            
+            if (inputs.saltStatus === 'Hypokalemia') {
+              return {
+                name: '11OHD',
+                fullName: ABBREVIATIONS['11OHD'],
+                description: 'Thiếu hụt enzyme 11-beta-hydroxylase, gây nam hóa và cao huyết áp.',
+                reasoning: '17-OHP tăng rất cao kèm hạ Kali máu gợi ý sự tích tụ DOC gây giữ muối, đặc trưng của thiếu hụt 11-beta-hydroxylase.',
+                suggestedEvaluations: ['Định lượng 11-deoxycortisol', 'Đo huyết áp'],
+              };
+            } else if (inputs.saltStatus === 'SaltWasting') {
+              return {
+                name: '21OHD (SW)',
+                fullName: `${ABBREVIATIONS['21OHD']} - ${ABBREVIATIONS['SW']}`,
+                description: 'Dạng phổ biến nhất của tăng sản thượng thận bẩm sinh (CAH), thể mất muối.',
+                reasoning: 'Nồng độ 17-OHP rất cao (>30) kèm mất muối lâm sàng là tiêu chuẩn vàng để chẩn đoán thiếu hụt 21-hydroxylase thể mất muối.',
+                suggestedEvaluations: ['Xét nghiệm gen CYP21A2', 'Theo dõi điện giải đồ'],
+                isEmergency: true,
+                emergencyNote: 'Cấp cứu mất muối! Cần can thiệp ngay lập tức.',
+              };
+            } else {
+              return {
+                name: '21OHD (Chưa loại trừ SW)',
+                fullName: `${ABBREVIATIONS['21OHD']} - Có thể là SV hoặc SW giai đoạn sớm`,
+                description: 'Tăng sản thượng thận bẩm sinh. Điện giải hiện tại bình thường nhưng chưa thể loại trừ cơn mất muối xảy ra muộn hơn.',
+                reasoning: 'Nồng độ 17-OHP rất cao (>30) chẩn đoán 21OHD. Điện giải bình thường có thể do bệnh nhân ở thể SV, hoặc thể SW nhưng chưa bước vào cơn suy thượng thận cấp (thường xảy ra vào tuần 1-2 sau sinh).',
+                suggestedEvaluations: ['Xét nghiệm gen CYP21A2', 'Theo dõi sát điện giải đồ trong những tuần đầu'],
+                isEmergency: false,
+                emergencyNote: 'Cần theo dõi sát điện giải đồ đề phòng cơn mất muối cấp.',
+              };
+            }
           } else if (inputs.seventeenOHP >= 10 && inputs.seventeenOHP <= 30) {
             if (inputs.saltStatus === 'SaltWasting') {
               return {
@@ -313,17 +356,19 @@ export default function App() {
               };
             } else if (inputs.saltStatus === 'Normal') {
               return {
-                name: 'SV 21OHD',
-                fullName: `${ABBREVIATIONS['21OHD']} - ${ABBREVIATIONS['SV']}`,
-                description: 'Tăng sản thượng thận bẩm sinh dạng nam hóa đơn thuần.',
-                reasoning: '17-OHP tăng mức độ trung bình và điện giải bình thường hướng tới dạng nam hóa đơn thuần của thiếu hụt 21-hydroxylase.',
-                suggestedEvaluations: ['Xét nghiệm gen CYP21A2'],
+                name: 'SV 21OHD (Chưa loại trừ SW)',
+                fullName: `${ABBREVIATIONS['21OHD']} - ${ABBREVIATIONS['SV']} (Cần theo dõi SW)`,
+                description: 'Tăng sản thượng thận bẩm sinh dạng nam hóa đơn thuần. Tuy nhiên chưa thể loại trừ hoàn toàn thể mất muối giai đoạn sớm.',
+                reasoning: '17-OHP tăng mức độ trung bình và điện giải bình thường hướng tới dạng nam hóa đơn thuần của thiếu hụt 21-hydroxylase, nhưng vẫn cần theo dõi nguy cơ mất muối.',
+                suggestedEvaluations: ['Xét nghiệm gen CYP21A2', 'Theo dõi sát điện giải đồ'],
+                isEmergency: false,
+                emergencyNote: 'Cần theo dõi sát điện giải đồ đề phòng cơn mất muối cấp.',
               };
             }
           } else if (inputs.seventeenOHP < 10) {
             return {
-              name: 'Nguyên nhân di truyền khác',
-              fullName: 'Cần xét nghiệm Di truyền sâu hơn',
+              name: 'Genetics',
+              fullName: 'Genetics (Khuyên làm xét nghiệm Di truyền)',
               description: 'Các chỉ số sinh hóa cơ bản bình thường, cần đánh giá bộ nhiễm sắc thể và các gen DSD khác.',
               reasoning: 'Khi các xét nghiệm nội tiết phổ biến đều bình thường, nguyên nhân có thể nằm ở các đột biến gen hiếm gặp điều hòa sự biệt hóa tuyến sinh dục.',
               suggestedEvaluations: ['Karyotype', 'DSD Gene Panel', 'Đánh giá lại lâm sàng'],
@@ -343,7 +388,7 @@ export default function App() {
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8 inline-flex p-6 bg-rose-50 rounded-[2rem] text-rose-500 shadow-xl shadow-rose-100"
+        className="mb-8 inline-flex p-6 bg-blue-50 rounded-2xl text-blue-600 shadow-xl shadow-blue-100"
       >
         <Stethoscope size={64} />
       </motion.div>
@@ -352,9 +397,9 @@ export default function App() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="text-5xl font-black text-slate-900 mb-4 tracking-tight"
+        className="text-5xl font-extrabold text-slate-900 mb-4 tracking-tight"
       >
-        DSD Dr. Son <span className="text-rose-500">1.0</span>
+        DSD Dr. Son <span className="text-blue-600">1.0</span>
       </motion.h1>
       
       <motion.p 
@@ -403,7 +448,7 @@ export default function App() {
           id="disclaimer" 
           checked={isDisclaimerAccepted}
           onChange={(e) => setIsDisclaimerAccepted(e.target.checked)}
-          className="w-5 h-5 rounded border-slate-300 text-rose-500 focus:ring-rose-500 cursor-pointer"
+          className="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-600 cursor-pointer"
         />
         <label htmlFor="disclaimer" className="text-sm font-medium text-slate-700 cursor-pointer select-none">
           Chỉ sử dụng với mục đích tham khảo lâm sàng
@@ -416,7 +461,7 @@ export default function App() {
 
       <div className="mt-12 p-4 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-500 italic text-left">
         <div className="flex gap-2 mb-2 text-slate-700 font-semibold not-italic">
-          <Info size={14} /> Lưu ý y tế:
+          <Info size={14} /> Miễn trừ trách nhiệm:
         </div>
         Ứng dụng chỉ cung cấp thông tin tham khảo hỗ trợ ra quyết định lâm sàng và không thay thế cho chẩn đoán của bác sĩ chuyên khoa nội tiết nhi.
       </div>
@@ -502,7 +547,7 @@ export default function App() {
               onSelect={(val) => updateInput('saltStatus', val)}
             />
           );
-        } else if (inputs.testosterone >= 100 && inputs.saltStatus === 'Normal' && inputs.testoDhtRatio === undefined) {
+        } else if (inputs.testosterone >= 100 && inputs.saltStatus !== 'SaltWasting' && inputs.testoDhtRatio === undefined) {
           questionContent = (
             <InputStep 
               title="Xét nghiệm cận lâm sàng"
@@ -581,10 +626,10 @@ export default function App() {
       <div className="max-w-xl mx-auto py-8 px-6">
         <div className="flex items-center justify-between mb-8">
           <button 
-            onClick={reset}
+            onClick={goBack}
             className="text-slate-500 hover:text-slate-800 flex items-center gap-1 text-sm font-medium"
           >
-            <RotateCcw size={16} /> Làm lại
+            <ChevronLeft size={16} /> Quay lại
           </button>
           <div className="h-2 flex-1 mx-6 bg-slate-100 rounded-full overflow-hidden">
             <motion.div 
@@ -593,6 +638,12 @@ export default function App() {
               animate={{ width: `${(Object.keys(inputs).length / 6) * 100}%` }}
             />
           </div>
+          <button 
+            onClick={reset}
+            className="text-slate-500 hover:text-slate-800 flex items-center gap-1 text-sm font-medium"
+          >
+            <RotateCcw size={16} /> Làm lại
+          </button>
         </div>
 
         <AnimatePresence mode="wait">
@@ -623,27 +674,27 @@ export default function App() {
             <motion.div 
               initial={{ rotate: -10 }}
               animate={{ rotate: 0 }}
-              className="inline-flex p-5 bg-rose-100 text-rose-500 rounded-3xl mb-6 shadow-lg shadow-rose-50"
+              className="inline-flex p-5 bg-blue-50 text-blue-600 rounded-2xl mb-6 shadow-lg shadow-blue-100/50"
             >
               <Microscope size={40} />
             </motion.div>
-            <h2 className="text-sm font-black text-rose-500 uppercase tracking-[0.2em] mb-2">Kết quả chẩn đoán</h2>
-            <h1 className="text-4xl font-black text-slate-900 mb-2">{diagnosis.name}</h1>
+            <h2 className="text-sm font-bold text-blue-600 uppercase tracking-[0.2em] mb-2">Kết quả chẩn đoán</h2>
+            <h1 className="text-4xl font-extrabold text-slate-900 mb-2">{diagnosis.name}</h1>
             <p className="text-xl text-slate-500 font-semibold">{diagnosis.fullName}</p>
           </div>
 
           <div className="grid gap-6 mb-10">
             <Card className="p-8 border-none bg-white shadow-xl shadow-slate-100 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-rose-50 rounded-full -mr-16 -mt-16 opacity-50"></div>
-              <h3 className="font-black text-slate-900 text-xl mb-4 flex items-center gap-3">
-                <div className="p-2 bg-rose-500 text-white rounded-xl"><Info size={20} /></div> 
+              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full -mr-16 -mt-16 opacity-50"></div>
+              <h3 className="font-bold text-slate-900 text-xl mb-4 flex items-center gap-3">
+                <div className="p-2 bg-blue-600 text-white rounded-lg"><Info size={20} /></div> 
                 Diễn giải chẩn đoán
               </h3>
               <p className="text-slate-600 text-lg leading-relaxed mb-6">{diagnosis.description}</p>
               
-              <div className="p-6 bg-slate-50 rounded-3xl border-2 border-slate-100">
+              <div className="p-6 bg-slate-50 rounded-2xl border border-slate-200">
                 <h4 className="font-bold text-slate-800 mb-3 flex items-center gap-2">
-                  <Activity size={18} className="text-rose-500" /> Tại sao nghĩ tới chẩn đoán này?
+                  <Activity size={18} className="text-blue-600" /> Tại sao nghĩ tới chẩn đoán này?
                 </h4>
                 <p className="text-slate-600 leading-relaxed italic">"{diagnosis.reasoning}"</p>
               </div>
@@ -653,27 +704,27 @@ export default function App() {
               <motion.div 
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                className="p-8 bg-red-500 text-white rounded-3xl shadow-xl shadow-red-100 flex gap-6 items-start"
+                className="p-8 bg-red-600 text-white rounded-2xl shadow-xl shadow-red-100 flex gap-6 items-start"
               >
                 <div className="p-3 bg-white/20 rounded-2xl shrink-0">
                   <AlertTriangle size={32} />
                 </div>
                 <div>
-                  <h3 className="font-black text-xl mb-2">CẢNH BÁO CẤP CỨU!</h3>
+                  <h3 className="font-bold text-xl mb-2">CẢNH BÁO CẤP CỨU!</h3>
                   <p className="text-red-50 leading-relaxed font-medium">{diagnosis.emergencyNote || 'Cần can thiệp y tế khẩn cấp ngay lập tức.'}</p>
                 </div>
               </motion.div>
             )}
 
-            <Card className="p-8 border-none bg-sky-50 shadow-xl shadow-sky-50">
-              <h3 className="font-black text-slate-900 text-xl mb-6 flex items-center gap-3">
-                <div className="p-2 bg-sky-500 text-white rounded-xl"><Dna size={20} /></div> 
+            <Card className="p-8 border-none bg-indigo-50 shadow-xl shadow-indigo-50">
+              <h3 className="font-bold text-slate-900 text-xl mb-6 flex items-center gap-3">
+                <div className="p-2 bg-indigo-600 text-white rounded-xl"><Dna size={20} /></div> 
                 Các bước tiếp theo nên làm
               </h3>
               <div className="grid gap-3">
                 {diagnosis.suggestedEvaluations.map((item, idx) => (
                   <div key={idx} className="flex gap-4 items-center p-4 bg-white rounded-2xl shadow-sm">
-                    <div className="w-8 h-8 rounded-full bg-sky-100 text-sky-600 flex items-center justify-center font-black text-sm shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-sm shrink-0">
                       {idx + 1}
                     </div>
                     <span className="font-bold text-slate-700">{item}</span>
@@ -684,16 +735,9 @@ export default function App() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button onClick={reset} variant="outline" className="flex-1 py-5 rounded-3xl border-2 hover:bg-slate-50 text-lg">
+            <Button onClick={reset} variant="outline" className="flex-1 py-5 rounded-xl border-2 hover:bg-slate-50 text-lg">
               <RotateCcw size={20} /> Đánh giá ca mới
             </Button>
-            <Button onClick={() => window.print()} variant="secondary" className="flex-1 py-5 rounded-3xl bg-slate-900 text-lg">
-              <ClipboardCheck size={20} /> Lưu & In báo cáo
-            </Button>
-          </div>
-
-          <div className="mt-16 text-center text-xs text-slate-400 font-bold tracking-widest uppercase">
-            DSD Dr. Son 1.0 • Phiên bản dành cho chuyên gia nhi khoa
           </div>
         </motion.div>
       </div>
@@ -701,22 +745,21 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FDFCFB] font-sans text-slate-900 selection:bg-rose-100">
+    <div className="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-blue-100">
       {/* Header */}
       <header className="bg-white/70 backdrop-blur-xl border-b border-slate-100 sticky top-0 z-20">
         <div className="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3 cursor-pointer group" onClick={reset}>
-            <div className="w-11 h-11 bg-rose-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-rose-200 group-hover:scale-110 transition-transform">
+            <div className="w-11 h-11 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-200 group-hover:scale-105 transition-transform">
               <Stethoscope size={22} />
             </div>
             <div>
-              <span className="font-black text-xl tracking-tight block leading-none">DSD Dr. Son</span>
-              <span className="text-[10px] font-black text-rose-500 uppercase tracking-widest">Phiên bản 1.0</span>
+              <span className="font-bold text-xl tracking-tight block leading-none">DSD Dr. Son</span>
             </div>
           </div>
-          <div className="hidden sm:flex items-center gap-8 text-sm font-bold text-slate-500">
-            <a href="#" className="hover:text-rose-500 transition-colors">Tài liệu</a>
-            <a href="#" className="hover:text-rose-500 transition-colors">Liên hệ</a>
+          <div className="hidden sm:flex items-center gap-8 text-sm font-medium text-slate-500">
+            <a href="#" className="hover:text-blue-600 transition-colors">Tài liệu</a>
+            <a href="#" className="hover:text-blue-600 transition-colors">Liên hệ</a>
           </div>
         </div>
       </header>
@@ -762,17 +805,17 @@ function QuestionStep({
   return (
     <div className="space-y-5">
       <div>
-        <h3 className="text-rose-500 font-black text-xs uppercase tracking-[0.2em] mb-2">{title}</h3>
-        <h2 className="text-2xl font-black text-slate-900 mb-4 leading-tight">{question}</h2>
+        <h3 className="text-blue-600 font-bold text-xs uppercase tracking-[0.2em] mb-2">{title}</h3>
+        <h2 className="text-2xl font-bold text-slate-900 mb-4 leading-tight">{question}</h2>
         
         {info && (
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="p-4 bg-white rounded-2xl border border-slate-100 shadow-sm mb-5"
+            className="p-4 bg-white rounded-xl border border-slate-200 shadow-sm mb-5"
           >
             <div className="flex items-center gap-2 mb-2 text-slate-800 font-bold text-sm">
-              <div className="p-1 bg-rose-50 text-rose-500 rounded-md"><Info size={14} /></div>
+              <div className="p-1 bg-blue-50 text-blue-600 rounded-md"><Info size={14} /></div>
               Kiến thức lâm sàng:
             </div>
             <p className="text-slate-600 text-sm mb-3 leading-relaxed">{info.description}</p>
@@ -789,10 +832,10 @@ function QuestionStep({
           <button
             key={idx}
             onClick={() => onSelect(opt.value)}
-            className="w-full p-4 text-left bg-white border border-slate-100 rounded-2xl hover:border-rose-500 hover:bg-rose-50 transition-all group flex items-center justify-between shadow-sm hover:shadow-rose-100"
+            className="w-full p-4 text-left bg-white border border-slate-200 rounded-xl hover:border-blue-600 hover:bg-blue-50 transition-all group flex items-center justify-between shadow-sm hover:shadow-blue-100/50"
           >
-            <span className="font-bold text-lg text-slate-700 group-hover:text-rose-700">{opt.label}</span>
-            <div className="w-8 h-8 rounded-full bg-slate-50 group-hover:bg-rose-500 group-hover:text-white flex items-center justify-center transition-colors">
+            <span className="font-bold text-lg text-slate-700 group-hover:text-blue-700">{opt.label}</span>
+            <div className="w-8 h-8 rounded-full bg-slate-50 group-hover:bg-blue-600 group-hover:text-white flex items-center justify-center transition-colors">
               <ChevronRight size={18} />
             </div>
           </button>
@@ -823,17 +866,17 @@ function InputStep({
   return (
     <div className="space-y-5">
       <div>
-        <h3 className="text-rose-500 font-black text-xs uppercase tracking-[0.2em] mb-2">{title}</h3>
-        <h2 className="text-2xl font-black text-slate-900 mb-4 leading-tight">{question}</h2>
+        <h3 className="text-blue-600 font-bold text-xs uppercase tracking-[0.2em] mb-2">{title}</h3>
+        <h2 className="text-2xl font-bold text-slate-900 mb-4 leading-tight">{question}</h2>
 
         {info && (
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="p-4 bg-white rounded-2xl border border-slate-100 shadow-sm mb-5"
+            className="p-4 bg-white rounded-xl border border-slate-200 shadow-sm mb-5"
           >
             <div className="flex items-center gap-2 mb-2 text-slate-800 font-bold text-sm">
-              <div className="p-1 bg-rose-50 text-rose-500 rounded-md"><Info size={14} /></div>
+              <div className="p-1 bg-blue-50 text-blue-600 rounded-md"><Info size={14} /></div>
               Kiến thức lâm sàng:
             </div>
             <p className="text-slate-600 text-sm mb-3 leading-relaxed">{info.description}</p>
@@ -854,7 +897,7 @@ function InputStep({
             value={value}
             onChange={(e) => setValue(e.target.value)}
             placeholder={placeholder}
-            className="w-full p-6 bg-white border-2 border-slate-100 rounded-2xl text-2xl font-black text-slate-900 focus:outline-none focus:ring-4 focus:ring-rose-500/10 focus:border-rose-500 transition-all placeholder:text-slate-200"
+            className="w-full p-6 bg-white border-2 border-slate-200 rounded-xl text-2xl font-bold text-slate-900 focus:outline-none focus:ring-4 focus:ring-blue-600/10 focus:border-blue-600 transition-all placeholder:text-slate-300"
             onKeyDown={(e) => {
               if (e.key === 'Enter' && value) onConfirm(value);
             }}
@@ -866,7 +909,7 @@ function InputStep({
         <Button 
           onClick={() => onConfirm(value)} 
           disabled={!value}
-          className="w-full py-5 rounded-2xl text-lg bg-rose-500 hover:bg-rose-600"
+          className="w-full py-5 rounded-xl text-lg bg-blue-600 hover:bg-blue-700"
         >
           Xác nhận chỉ số
         </Button>
