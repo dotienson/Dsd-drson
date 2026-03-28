@@ -124,7 +124,7 @@ const Button = ({
     <button 
       onClick={onClick}
       disabled={disabled}
-      className={`px-8 py-4 rounded-xl font-bold transition-all active:scale-95 disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-3 shadow-lg ${variants[variant]} ${className}`}
+      className={`px-6 py-3 sm:px-8 sm:py-4 rounded-xl font-bold transition-all active:scale-95 disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-3 shadow-lg ${variants[variant]} ${className}`}
     >
       {children}
     </button>
@@ -322,7 +322,7 @@ export default function App() {
                 reasoning: 'Nồng độ 17-OHP rất cao (>30) kèm mất muối lâm sàng là tiêu chuẩn vàng để chẩn đoán thiếu hụt 21-hydroxylase thể mất muối.',
                 suggestedEvaluations: ['Xét nghiệm gen CYP21A2', 'Theo dõi điện giải đồ'],
                 isEmergency: true,
-                emergencyNote: 'Cấp cứu mất muối! Cần can thiệp ngay lập tức.',
+                emergencyNote: 'Tình trạng cấp cứu khẩn cấp: rối loạn điện giải và suy thượng thận cấp nguy hiểm tính mạng!',
               };
             } else {
               return {
@@ -384,20 +384,20 @@ export default function App() {
   // --- UI Renderers ---
 
   const renderLanding = () => (
-    <div className="max-w-2xl mx-auto py-12 px-6 text-center">
+    <div className="max-w-2xl mx-auto py-10 sm:py-16 px-6 text-center">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8 inline-flex p-6 bg-blue-50 rounded-2xl text-blue-600 shadow-xl shadow-blue-100"
+        className="mb-8 sm:mb-10 inline-flex p-5 sm:p-8 bg-blue-50 rounded-2xl text-blue-600 shadow-xl shadow-blue-100"
       >
-        <Stethoscope size={64} />
+        <Stethoscope size={56} className="sm:w-20 sm:h-20 w-14 h-14" />
       </motion.div>
       
       <motion.h1 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="text-5xl font-extrabold text-slate-900 mb-4 tracking-tight"
+        className="text-4xl sm:text-6xl font-extrabold text-slate-900 mb-4 sm:mb-6 tracking-tight"
       >
         DSD Dr. Son <span className="text-blue-600">1.0</span>
       </motion.h1>
@@ -406,7 +406,7 @@ export default function App() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="text-xl text-slate-600 mb-10 leading-relaxed font-medium"
+        className="text-lg sm:text-2xl text-slate-600 mb-10 sm:mb-14 leading-relaxed font-medium"
       >
         Lưu đồ tiếp cận bất thường phát triển giới tính (DSD) cho bác sĩ nhi - sơ sinh
       </motion.p>
@@ -415,24 +415,24 @@ export default function App() {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.3 }}
-        className="grid gap-4 mb-12 text-left"
+        className="grid gap-4 sm:gap-6 mb-10 sm:mb-16 text-left"
       >
-        <Card className="p-5 flex gap-4 items-start">
-          <div className="p-2 bg-emerald-50 text-emerald-600 rounded-lg">
-            <ClipboardCheck size={20} />
+        <Card className="p-5 sm:p-6 flex gap-4 sm:gap-5 items-start">
+          <div className="p-3 bg-emerald-50 text-emerald-600 rounded-lg shrink-0">
+            <ClipboardCheck size={24} />
           </div>
           <div>
-            <h3 className="font-semibold text-slate-900">Hướng dẫn từng bước</h3>
-            <p className="text-sm text-slate-500">Các câu hỏi sẽ hiện ra linh hoạt dựa trên dữ liệu lâm sàng bạn cung cấp.</p>
+            <h3 className="font-semibold text-slate-900 text-base sm:text-xl">Hướng dẫn từng bước</h3>
+            <p className="text-sm sm:text-lg text-slate-500">Các câu hỏi sẽ hiện ra linh hoạt dựa trên dữ liệu lâm sàng bạn cung cấp.</p>
           </div>
         </Card>
-        <Card className="p-5 flex gap-4 items-start">
-          <div className="p-2 bg-amber-50 text-amber-600 rounded-lg">
-            <Activity size={20} />
+        <Card className="p-5 sm:p-6 flex gap-4 sm:gap-5 items-start">
+          <div className="p-3 bg-amber-50 text-amber-600 rounded-lg shrink-0">
+            <Activity size={24} />
           </div>
           <div>
-            <h3 className="font-semibold text-slate-900">Cảnh báo cấp cứu</h3>
-            <p className="text-sm text-slate-500">Nhận diện sớm các tình trạng nguy hiểm như cơn mất muối cấp.</p>
+            <h3 className="font-semibold text-slate-900 text-base sm:text-xl">Cảnh báo cấp cứu</h3>
+            <p className="text-sm sm:text-lg text-slate-500">Nhận diện sớm các tình trạng nguy hiểm như cơn mất muối cấp.</p>
           </div>
         </Card>
       </motion.div>
@@ -441,27 +441,27 @@ export default function App() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4 }}
-        className="mb-8 flex items-center justify-center gap-3"
+        className="mb-8 sm:mb-10 flex items-center justify-center gap-3 sm:gap-4"
       >
         <input 
           type="checkbox" 
           id="disclaimer" 
           checked={isDisclaimerAccepted}
           onChange={(e) => setIsDisclaimerAccepted(e.target.checked)}
-          className="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-600 cursor-pointer"
+          className="w-5 h-5 sm:w-6 sm:h-6 rounded border-slate-300 text-blue-600 focus:ring-blue-600 cursor-pointer"
         />
-        <label htmlFor="disclaimer" className="text-sm font-medium text-slate-700 cursor-pointer select-none">
+        <label htmlFor="disclaimer" className="text-sm sm:text-lg font-medium text-slate-700 cursor-pointer select-none">
           Chỉ sử dụng với mục đích tham khảo lâm sàng
         </label>
       </motion.div>
 
-      <Button onClick={startQuestionnaire} disabled={!isDisclaimerAccepted} className="w-full sm:w-auto px-12 py-4 text-lg">
-        Bắt đầu đánh giá <ChevronRight size={20} />
+      <Button onClick={startQuestionnaire} disabled={!isDisclaimerAccepted} className="w-full sm:w-auto px-10 sm:px-16 py-4 sm:py-5 text-lg sm:text-xl">
+        Bắt đầu đánh giá <ChevronRight size={24} />
       </Button>
 
-      <div className="mt-12 p-4 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-500 italic text-left">
+      <div className="mt-10 sm:mt-16 p-4 sm:p-6 bg-slate-50 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-500 italic text-left">
         <div className="flex gap-2 mb-2 text-slate-700 font-semibold not-italic">
-          <Info size={14} /> Miễn trừ trách nhiệm:
+          <Info size={16} /> Miễn trừ trách nhiệm:
         </div>
         Ứng dụng chỉ cung cấp thông tin tham khảo hỗ trợ ra quyết định lâm sàng và không thay thế cho chẩn đoán của bác sĩ chuyên khoa nội tiết nhi.
       </div>
@@ -623,8 +623,8 @@ export default function App() {
     }
 
     return (
-      <div className="max-w-xl mx-auto py-8 px-6">
-        <div className="flex items-center justify-between mb-8">
+      <div className="max-w-xl mx-auto py-6 px-4 sm:py-8 sm:px-6">
+        <div className="flex items-center justify-between mb-5 sm:mb-8">
           <button 
             onClick={goBack}
             className="text-slate-500 hover:text-slate-800 flex items-center gap-1 text-sm font-medium"
@@ -665,38 +665,38 @@ export default function App() {
     if (!diagnosis) return null;
 
     return (
-      <div className="max-w-2xl mx-auto py-8 px-6">
+      <div className="max-w-2xl mx-auto py-8 px-6 sm:py-12 sm:px-8">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
         >
-          <div className="text-center mb-10">
+          <div className="text-center mb-8 sm:mb-12">
             <motion.div 
               initial={{ rotate: -10 }}
               animate={{ rotate: 0 }}
-              className="inline-flex p-5 bg-blue-50 text-blue-600 rounded-2xl mb-6 shadow-lg shadow-blue-100/50"
+              className="inline-flex p-5 sm:p-6 bg-blue-50 text-blue-600 rounded-2xl mb-6 sm:mb-8 shadow-lg shadow-blue-100/50"
             >
-              <Microscope size={40} />
+              <Microscope size={40} className="sm:w-12 sm:h-12" />
             </motion.div>
-            <h2 className="text-sm font-bold text-blue-600 uppercase tracking-[0.2em] mb-2">Kết quả chẩn đoán</h2>
-            <h1 className="text-4xl font-extrabold text-slate-900 mb-2">{diagnosis.name}</h1>
-            <p className="text-xl text-slate-500 font-semibold">{diagnosis.fullName}</p>
+            <h2 className="text-sm sm:text-base font-bold text-blue-600 uppercase tracking-[0.2em] mb-3">Chẩn đoán cần nghĩ đến</h2>
+            <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 mb-3">{diagnosis.name}</h1>
+            <p className="text-lg sm:text-2xl text-slate-500 font-semibold">{diagnosis.fullName}</p>
           </div>
 
-          <div className="grid gap-6 mb-10">
-            <Card className="p-8 border-none bg-white shadow-xl shadow-slate-100 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full -mr-16 -mt-16 opacity-50"></div>
-              <h3 className="font-bold text-slate-900 text-xl mb-4 flex items-center gap-3">
-                <div className="p-2 bg-blue-600 text-white rounded-lg"><Info size={20} /></div> 
+          <div className="grid gap-6 sm:gap-8 mb-8 sm:mb-12">
+            <Card className="p-6 sm:p-10 border-none bg-white shadow-xl shadow-slate-100 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 bg-blue-50 rounded-full -mr-12 -mt-12 sm:-mr-16 sm:-mt-16 opacity-50"></div>
+              <h3 className="font-bold text-slate-900 text-xl sm:text-2xl mb-4 sm:mb-5 flex items-center gap-3 sm:gap-4">
+                <div className="p-2 bg-blue-600 text-white rounded-lg"><Info size={20} className="sm:w-6 sm:h-6" /></div> 
                 Diễn giải chẩn đoán
               </h3>
-              <p className="text-slate-600 text-lg leading-relaxed mb-6">{diagnosis.description}</p>
+              <p className="text-slate-600 text-lg sm:text-xl leading-relaxed mb-6 sm:mb-8">{diagnosis.description}</p>
               
-              <div className="p-6 bg-slate-50 rounded-2xl border border-slate-200">
-                <h4 className="font-bold text-slate-800 mb-3 flex items-center gap-2">
-                  <Activity size={18} className="text-blue-600" /> Tại sao nghĩ tới chẩn đoán này?
+              <div className="p-5 sm:p-8 bg-slate-50 rounded-2xl border border-slate-200">
+                <h4 className="font-bold text-slate-800 text-base sm:text-lg mb-3 sm:mb-4 flex items-center gap-2">
+                  <Activity size={20} className="text-blue-600 sm:w-[22px] sm:h-[22px]" /> Tại sao nghĩ tới chẩn đoán này?
                 </h4>
-                <p className="text-slate-600 leading-relaxed italic">"{diagnosis.reasoning}"</p>
+                <p className="text-slate-600 text-base sm:text-lg leading-relaxed italic">"{diagnosis.reasoning}"</p>
               </div>
             </Card>
 
@@ -704,39 +704,39 @@ export default function App() {
               <motion.div 
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                className="p-8 bg-red-600 text-white rounded-2xl shadow-xl shadow-red-100 flex gap-6 items-start"
+                className="p-6 sm:p-10 bg-red-600 text-white rounded-2xl shadow-xl shadow-red-100 flex gap-5 sm:gap-8 items-start"
               >
-                <div className="p-3 bg-white/20 rounded-2xl shrink-0">
-                  <AlertTriangle size={32} />
+                <div className="p-3 sm:p-4 bg-white/20 rounded-2xl shrink-0">
+                  <AlertTriangle size={32} className="sm:w-10 sm:h-10" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-xl mb-2">CẢNH BÁO CẤP CỨU!</h3>
-                  <p className="text-red-50 leading-relaxed font-medium">{diagnosis.emergencyNote || 'Cần can thiệp y tế khẩn cấp ngay lập tức.'}</p>
+                  <h3 className="font-bold text-xl sm:text-2xl mb-2 sm:mb-3">CẢNH BÁO CẤP CỨU!</h3>
+                  <p className="text-red-50 text-base sm:text-lg leading-relaxed font-medium">{diagnosis.emergencyNote || 'Cần can thiệp y tế khẩn cấp ngay lập tức.'}</p>
                 </div>
               </motion.div>
             )}
 
-            <Card className="p-8 border-none bg-indigo-50 shadow-xl shadow-indigo-50">
-              <h3 className="font-bold text-slate-900 text-xl mb-6 flex items-center gap-3">
-                <div className="p-2 bg-indigo-600 text-white rounded-xl"><Dna size={20} /></div> 
+            <Card className="p-6 sm:p-10 border-none bg-indigo-50 shadow-xl shadow-indigo-50">
+              <h3 className="font-bold text-slate-900 text-xl sm:text-2xl mb-6 sm:mb-8 flex items-center gap-3 sm:gap-4">
+                <div className="p-2 bg-indigo-600 text-white rounded-xl"><Dna size={20} className="sm:w-6 sm:h-6" /></div> 
                 Các bước tiếp theo nên làm
               </h3>
-              <div className="grid gap-3">
+              <div className="grid gap-3 sm:gap-4">
                 {diagnosis.suggestedEvaluations.map((item, idx) => (
-                  <div key={idx} className="flex gap-4 items-center p-4 bg-white rounded-2xl shadow-sm">
-                    <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-sm shrink-0">
+                  <div key={idx} className="flex gap-4 sm:gap-5 items-center p-4 sm:p-5 bg-white rounded-2xl shadow-sm">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-sm sm:text-base shrink-0">
                       {idx + 1}
                     </div>
-                    <span className="font-bold text-slate-700">{item}</span>
+                    <span className="font-bold text-base sm:text-lg text-slate-700">{item}</span>
                   </div>
                 ))}
               </div>
             </Card>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Button onClick={reset} variant="outline" className="flex-1 py-5 rounded-xl border-2 hover:bg-slate-50 text-lg">
-              <RotateCcw size={20} /> Đánh giá ca mới
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
+            <Button onClick={reset} variant="outline" className="flex-1 py-4 sm:py-6 rounded-xl border-2 hover:bg-slate-50 text-lg sm:text-xl">
+              <RotateCcw size={24} /> Đánh giá ca mới
             </Button>
           </div>
         </motion.div>
@@ -748,13 +748,13 @@ export default function App() {
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-blue-100">
       {/* Header */}
       <header className="bg-white/70 backdrop-blur-xl border-b border-slate-100 sticky top-0 z-20">
-        <div className="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-3 cursor-pointer group" onClick={reset}>
-            <div className="w-11 h-11 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-200 group-hover:scale-105 transition-transform">
-              <Stethoscope size={22} />
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+          <div className="flex items-center gap-2 sm:gap-3 cursor-pointer group" onClick={reset}>
+            <div className="w-9 h-9 sm:w-11 sm:h-11 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-200 group-hover:scale-105 transition-transform">
+              <Stethoscope size={18} className="sm:w-[22px] sm:h-[22px]" />
             </div>
             <div>
-              <span className="font-bold text-xl tracking-tight block leading-none">DSD Dr. Son</span>
+              <span className="font-bold text-lg sm:text-xl tracking-tight block leading-none">DSD Dr. Son</span>
             </div>
           </div>
           <div className="hidden sm:flex items-center gap-8 text-sm font-medium text-slate-500">
@@ -803,23 +803,23 @@ function QuestionStep({
   const info = infoKey ? CLINICAL_INFO[infoKey] : null;
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 sm:space-y-6">
       <div>
-        <h3 className="text-blue-600 font-bold text-xs uppercase tracking-[0.2em] mb-2">{title}</h3>
-        <h2 className="text-2xl font-bold text-slate-900 mb-4 leading-tight">{question}</h2>
+        <h3 className="text-blue-600 font-bold text-xs sm:text-sm uppercase tracking-[0.2em] mb-2 sm:mb-3">{title}</h3>
+        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4 sm:mb-6 leading-tight">{question}</h2>
         
         {info && (
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="p-4 bg-white rounded-xl border border-slate-200 shadow-sm mb-5"
+            className="p-4 sm:p-5 bg-white rounded-xl border border-slate-200 shadow-sm mb-5 sm:mb-6"
           >
-            <div className="flex items-center gap-2 mb-2 text-slate-800 font-bold text-sm">
-              <div className="p-1 bg-blue-50 text-blue-600 rounded-md"><Info size={14} /></div>
+            <div className="flex items-center gap-2 mb-2 sm:mb-3 text-slate-800 font-bold text-sm sm:text-base">
+              <div className="p-1 bg-blue-50 text-blue-600 rounded-md"><Info size={14} className="sm:w-[16px] sm:h-[16px]" /></div>
               Kiến thức lâm sàng:
             </div>
-            <p className="text-slate-600 text-sm mb-3 leading-relaxed">{info.description}</p>
-            <div className="p-3 bg-slate-50 rounded-xl text-xs text-slate-500 leading-relaxed">
+            <p className="text-slate-600 text-sm sm:text-base mb-3 sm:mb-4 leading-relaxed">{info.description}</p>
+            <div className="p-3 sm:p-4 bg-slate-50 rounded-xl text-xs sm:text-sm text-slate-500 leading-relaxed">
               <span className="font-bold text-slate-700 block mb-1">Hướng dẫn khám/xét nghiệm:</span>
               {info.howTo}
             </div>
@@ -827,16 +827,16 @@ function QuestionStep({
         )}
       </div>
 
-      <div className="grid gap-3">
+      <div className="grid gap-3 sm:gap-4">
         {options.map((opt, idx) => (
           <button
             key={idx}
             onClick={() => onSelect(opt.value)}
-            className="w-full p-4 text-left bg-white border border-slate-200 rounded-xl hover:border-blue-600 hover:bg-blue-50 transition-all group flex items-center justify-between shadow-sm hover:shadow-blue-100/50"
+            className="w-full p-4 sm:p-5 text-left bg-white border border-slate-200 rounded-xl hover:border-blue-600 hover:bg-blue-50 transition-all group flex items-center justify-between shadow-sm hover:shadow-blue-100/50"
           >
-            <span className="font-bold text-lg text-slate-700 group-hover:text-blue-700">{opt.label}</span>
-            <div className="w-8 h-8 rounded-full bg-slate-50 group-hover:bg-blue-600 group-hover:text-white flex items-center justify-center transition-colors">
-              <ChevronRight size={18} />
+            <span className="font-bold text-lg sm:text-xl text-slate-700 group-hover:text-blue-700">{opt.label}</span>
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-50 group-hover:bg-blue-600 group-hover:text-white flex items-center justify-center transition-colors">
+              <ChevronRight size={20} className="sm:w-[22px] sm:h-[22px]" />
             </div>
           </button>
         ))}
@@ -864,23 +864,23 @@ function InputStep({
   const [value, setValue] = useState('');
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 sm:space-y-6">
       <div>
-        <h3 className="text-blue-600 font-bold text-xs uppercase tracking-[0.2em] mb-2">{title}</h3>
-        <h2 className="text-2xl font-bold text-slate-900 mb-4 leading-tight">{question}</h2>
+        <h3 className="text-blue-600 font-bold text-xs sm:text-sm uppercase tracking-[0.2em] mb-2 sm:mb-3">{title}</h3>
+        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4 sm:mb-6 leading-tight">{question}</h2>
 
         {info && (
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="p-4 bg-white rounded-xl border border-slate-200 shadow-sm mb-5"
+            className="p-4 sm:p-5 bg-white rounded-xl border border-slate-200 shadow-sm mb-5 sm:mb-6"
           >
-            <div className="flex items-center gap-2 mb-2 text-slate-800 font-bold text-sm">
-              <div className="p-1 bg-blue-50 text-blue-600 rounded-md"><Info size={14} /></div>
+            <div className="flex items-center gap-2 mb-2 sm:mb-3 text-slate-800 font-bold text-sm sm:text-base">
+              <div className="p-1 bg-blue-50 text-blue-600 rounded-md"><Info size={14} className="sm:w-[16px] sm:h-[16px]" /></div>
               Kiến thức lâm sàng:
             </div>
-            <p className="text-slate-600 text-sm mb-3 leading-relaxed">{info.description}</p>
-            <div className="p-3 bg-slate-50 rounded-xl text-xs text-slate-500 leading-relaxed">
+            <p className="text-slate-600 text-sm sm:text-base mb-3 sm:mb-4 leading-relaxed">{info.description}</p>
+            <div className="p-3 sm:p-4 bg-slate-50 rounded-xl text-xs sm:text-sm text-slate-500 leading-relaxed">
               <span className="font-bold text-slate-700 block mb-1">Giá trị tham chiếu:</span>
               {info.howTo}
             </div>
@@ -888,7 +888,7 @@ function InputStep({
         )}
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-4 sm:space-y-5">
         <div className="relative">
           <input 
             type="number"
@@ -897,19 +897,19 @@ function InputStep({
             value={value}
             onChange={(e) => setValue(e.target.value)}
             placeholder={placeholder}
-            className="w-full p-6 bg-white border-2 border-slate-200 rounded-xl text-2xl font-bold text-slate-900 focus:outline-none focus:ring-4 focus:ring-blue-600/10 focus:border-blue-600 transition-all placeholder:text-slate-300"
+            className="w-full p-5 sm:p-8 bg-white border-2 border-slate-200 rounded-xl text-2xl sm:text-4xl font-bold text-slate-900 focus:outline-none focus:ring-4 focus:ring-blue-600/10 focus:border-blue-600 transition-all placeholder:text-slate-300"
             onKeyDown={(e) => {
               if (e.key === 'Enter' && value) onConfirm(value);
             }}
           />
-          <div className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-300 font-bold text-base">
+          <div className="absolute right-5 sm:right-8 top-1/2 -translate-y-1/2 text-slate-300 font-bold text-base sm:text-xl">
             {question.includes("ng/mL") ? "ng/mL" : question.includes("ng/dL") ? "ng/dL" : ""}
           </div>
         </div>
         <Button 
           onClick={() => onConfirm(value)} 
           disabled={!value}
-          className="w-full py-5 rounded-xl text-lg bg-blue-600 hover:bg-blue-700"
+          className="w-full py-4 sm:py-6 rounded-xl text-lg sm:text-xl bg-blue-600 hover:bg-blue-700"
         >
           Xác nhận chỉ số
         </Button>
