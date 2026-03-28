@@ -15,7 +15,8 @@ import {
   ClipboardCheck, 
   Activity,
   Microscope,
-  Dna
+  Dna,
+  Lock
 } from 'lucide-react';
 
 // --- Types ---
@@ -105,13 +106,15 @@ const Button = ({
   onClick, 
   variant = 'primary', 
   disabled = false,
-  className = "" 
+  className = "",
+  type = "button"
 }: { 
   children: React.ReactNode, 
   onClick?: () => void, 
   variant?: 'primary' | 'secondary' | 'outline' | 'danger',
   disabled?: boolean,
-  className?: string
+  className?: string,
+  type?: "button" | "submit" | "reset"
 }) => {
   const variants = {
     primary: 'bg-blue-600 text-white hover:bg-blue-700 shadow-blue-100',
@@ -122,6 +125,7 @@ const Button = ({
 
   return (
     <button 
+      type={type}
       onClick={onClick}
       disabled={disabled}
       className={`px-6 py-3 sm:px-8 sm:py-4 rounded-xl font-bold transition-all active:scale-95 disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-3 shadow-lg ${variants[variant]} ${className}`}
@@ -134,12 +138,26 @@ const Button = ({
 // --- Main App ---
 
 export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [passcodeInput, setPasscodeInput] = useState('');
+  const [passcodeError, setPasscodeError] = useState(false);
+
   const [state, setState] = useState<AppState>({
     step: 'landing',
     inputs: {},
     history: [],
   });
   const [isDisclaimerAccepted, setIsDisclaimerAccepted] = useState(false);
+
+  const handlePasscodeSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (passcodeInput.toLowerCase() === 'dotienson') {
+      setIsAuthenticated(true);
+      setPasscodeError(false);
+    } else {
+      setPasscodeError(true);
+    }
+  };
 
   const reset = () => {
     setState({
@@ -743,6 +761,59 @@ export default function App() {
       </div>
     );
   };
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6 font-sans">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="max-w-md w-full bg-white p-8 sm:p-10 rounded-3xl shadow-2xl shadow-slate-200 border border-slate-100"
+        >
+          <div className="text-center mb-8">
+            <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg shadow-blue-200">
+              <Lock size={32} />
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2">Mã bảo vệ</h1>
+            <p className="text-slate-500 text-sm sm:text-base">Vui lòng nhập mã để truy cập ứng dụng</p>
+          </div>
+
+          <form onSubmit={handlePasscodeSubmit} className="space-y-6">
+            <div>
+              <input 
+                type="password"
+                value={passcodeInput}
+                onChange={(e) => setPasscodeInput(e.target.value)}
+                placeholder="Nhập mã tại đây..."
+                autoFocus
+                className={`w-full p-4 sm:p-5 bg-slate-50 border-2 rounded-2xl text-center text-xl font-bold focus:outline-none transition-all ${
+                  passcodeError ? 'border-red-500 focus:ring-4 focus:ring-red-100' : 'border-slate-100 focus:border-blue-600 focus:ring-4 focus:ring-blue-100'
+                }`}
+              />
+              {passcodeError && (
+                <motion.p 
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-red-500 text-sm font-bold mt-3 text-center"
+                >
+                  Mã bảo vệ không chính xác!
+                </motion.p>
+              )}
+            </div>
+            <Button type="submit" className="w-full py-4 rounded-2xl text-lg bg-blue-600 hover:bg-blue-700">
+              Truy cập ngay
+            </Button>
+          </form>
+          
+          <div className="mt-8 pt-8 border-t border-slate-100 text-center">
+            <p className="text-[10px] sm:text-xs text-slate-400 uppercase tracking-[0.2em] font-bold">
+              DSD Dr. Son • Bảo mật nội bộ
+            </p>
+          </div>
+        </motion.div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-blue-100">
